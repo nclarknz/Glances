@@ -39,7 +39,7 @@ DATA_SCHEMA = vol.Schema(
 class GlancesFlowHandler(ConfigFlow, domain=DOMAIN):
     """Handle a Glances config flow."""
 
-    VERSION = 1
+    VERSION = 2
 
     async def async_step_reauth(
         self, entry_data: Mapping[str, Any]

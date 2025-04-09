@@ -3,7 +3,7 @@
 from datetime import timedelta
 import sys
 
-DOMAIN = "glances"
+DOMAIN = "glances2"
 CONF_VERSION = "version"
 
 DEFAULT_HOST = "localhost"
