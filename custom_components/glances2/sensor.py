@@ -334,9 +334,9 @@ async def async_setup_entry(
     entities: list[GlancesSensor] = []
 
     for sensor_type, sensors in coordinator.data.items():
-        _LOGGER.warning("sensor_type : %s",str(sensor_type))
+        _LOGGER.debug("sensor_type : %s",str(sensor_type))
         for sensor_label in sensors:
-            _LOGGER.info("\tsensor_label : %s",str(sensor_label))
+            _LOGGER.debug("sensor_label : %s",str(sensor_label))
         if sensor_type in ["fs", "diskio", "sensors", "raid", "gpu", "network","amps","containers"]:
             entities.extend(
                 GlancesSensor(
@@ -406,8 +406,12 @@ class GlancesSensor(CoordinatorEntity[GlancesDataUpdateCoordinator], SensorEntit
     def _update_native_value(self) -> None:
         """Update sensor native value from coordinator data."""
         data = self.coordinator.data.get(self.entity_description.type)
-        _LOGGER.warning("data: %s",str(data))
-        _LOGGER.warning("self.entity_description.type %s",str(self.entity_description.type))
+        _LOGGER.debug("entity_description.type %s",str(self.entity_description.type))
+        _LOGGER.debug("entity_description.key %s",str(self.entity_description.key))
+        _LOGGER.debug("sensor label %s",str(self._sensor_label))
+        _LOGGER.debug("_numeric_state_expected %s",str(self._numeric_state_expected))
+        _LOGGER.debug("data: %s",str(data))
+        
         if data and (dict_val := data.get(self._sensor_label)):
             self._attr_native_value = dict_val.get(self.entity_description.key)
         elif data and (self.entity_description.key in data):
@@ -415,6 +419,7 @@ class GlancesSensor(CoordinatorEntity[GlancesDataUpdateCoordinator], SensorEntit
         else:
             self._attr_native_value = None
         self._update_data_valid()
+        _LOGGER.debug("data_valid: %s",str(self._data_valid))
 
     def _update_data_valid(self) -> None:
         self._data_valid = self._attr_native_value is not None and (
