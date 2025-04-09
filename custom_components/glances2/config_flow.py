@@ -1,4 +1,4 @@
-"""Config flow for Glances."""
+"""Config flow for Glances2."""
 
 from __future__ import annotations
 
@@ -37,7 +37,7 @@ DATA_SCHEMA = vol.Schema(
 
 
 class Glances2FlowHandler(ConfigFlow, domain=DOMAIN):
-    """Handle a Glances config flow."""
+    """Handle a Glances2 config flow."""
 
     VERSION = 1
 

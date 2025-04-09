@@ -377,7 +377,7 @@ class Glances2Sensor(CoordinatorEntity[Glances2DataUpdateCoordinator], SensorEnt
     ) -> None:
         """Initialize the sensor."""
         super().__init__(coordinator)
-        _LOGGER.debug("GlancesSensor init")
+        _LOGGER.debug("Glances2Sensor init")
         self._sensor_label = sensor_label
         self.entity_description = description
         

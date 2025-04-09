@@ -28,7 +28,7 @@ from homeassistant.exceptions import (
 )
 from homeassistant.helpers.httpx_client import get_async_client
 
-from .coordinator import GlancesConfigEntry, Glances2DataUpdateCoordinator
+from .coordinator import Glances2ConfigEntry, Glances2DataUpdateCoordinator
 
 PLATFORMS = [Platform.SENSOR]
 
@@ -37,7 +37,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_entry(
-    hass: HomeAssistant, config_entry: GlancesConfigEntry
+    hass: HomeAssistant, config_entry: Glances2ConfigEntry
 ) -> bool:
     """Set up Glances from config entry."""
     try:
@@ -58,7 +58,7 @@ async def async_setup_entry(
     return True
 
 
-async def async_unload_entry(hass: HomeAssistant, entry: GlancesConfigEntry) -> bool:
+async def async_unload_entry(hass: HomeAssistant, entry: Glances2ConfigEntry) -> bool:
     """Unload a config entry."""
     return await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
 
