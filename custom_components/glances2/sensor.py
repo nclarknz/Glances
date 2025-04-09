@@ -335,10 +335,8 @@ async def async_setup_entry(
 
     for sensor_type, sensors in coordinator.data.items():
         _LOGGER.debug("sensor_type : %s",str(sensor_type))
-        for sensor_label, params in sensors:
+        for sensor_label in sensors:
             _LOGGER.debug("\tsensor_label : %s",str(sensor_label))
-            for param in params:
-                _LOGGER.debug("param : %s",str(param))
         if sensor_type in ["fs", "diskio", "sensors", "raid", "gpu", "network","amps","containers"]:
             entities.extend(
                 GlancesSensor(
@@ -360,6 +358,7 @@ async def async_setup_entry(
                 if (sensor_description := SENSOR_TYPES.get((sensor_type, sensor)))
             )
 
+           
     async_add_entities(entities)
 
 
