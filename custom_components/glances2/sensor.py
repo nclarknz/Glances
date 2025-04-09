@@ -381,6 +381,7 @@ class GlancesSensor(CoordinatorEntity[GlancesDataUpdateCoordinator], SensorEntit
         self.entity_description = description
         if sensor_label:
             self._attr_translation_placeholders = {"sensor_label": sensor_label}
+            _LOGGER.debug("_attr_translation_placeholders %s",self._attr_translation_placeholders)
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, coordinator.config_entry.entry_id)},
             manufacturer="Glances2",
@@ -392,7 +393,7 @@ class GlancesSensor(CoordinatorEntity[GlancesDataUpdateCoordinator], SensorEntit
         _LOGGER.debug("GlancesSensor")
         _LOGGER.debug("Sensor Label %s",sensor_label)
         _LOGGER.debug("Description %s", description)
-        _LOGGER.debug("_attr_translation_placeholders %s",self._attr_translation_placeholders)
+        
         _LOGGER.debug("_attr_unique_id %s",self._attr_unique_id)
 
         self._update_native_value()
