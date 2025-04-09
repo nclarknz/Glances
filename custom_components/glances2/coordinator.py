@@ -1,4 +1,4 @@
-"""Coordinator for Glances integration."""
+"""Coordinator for Glances2 integration."""
 
 from datetime import datetime, timedelta
 import logging
@@ -17,16 +17,16 @@ from .const import DEFAULT_SCAN_INTERVAL, DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
-type GlancesConfigEntry = ConfigEntry[GlancesDataUpdateCoordinator]
+type Glances2ConfigEntry = ConfigEntry[Glances2DataUpdateCoordinator]
 
 
-class GlancesDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
+class Glances2DataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
     """Get the latest data from Glances api."""
 
-    config_entry: GlancesConfigEntry
+    config_entry: Glances2ConfigEntry
 
     def __init__(
-        self, hass: HomeAssistant, entry: GlancesConfigEntry, api: Glances
+        self, hass: HomeAssistant, entry: Glances2ConfigEntry, api: Glances
     ) -> None:
         """Initialize the Glances data."""
         self.hass = hass

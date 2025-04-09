@@ -36,7 +36,7 @@ DATA_SCHEMA = vol.Schema(
 )
 
 
-class GlancesFlowHandler(ConfigFlow, domain=DOMAIN):
+class Glances2FlowHandler(ConfigFlow, domain=DOMAIN):
     """Handle a Glances config flow."""
 
     VERSION = 1

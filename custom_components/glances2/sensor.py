@@ -24,24 +24,24 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import CPU_ICON, DOMAIN
-from .coordinator import GlancesConfigEntry, GlancesDataUpdateCoordinator
+from .coordinator import Glances2ConfigEntry, Glances2DataUpdateCoordinator
 _LOGGER = logging.getLogger(__name__)
 
 @dataclass(frozen=True, kw_only=True)
-class GlancesSensorEntityDescription(SensorEntityDescription):
+class Glances2SensorEntityDescription(SensorEntityDescription):
     """Describe Glances sensor entity."""
     type: str
 
 
 SENSOR_TYPES = {
-    ("fs", "disk_use_percent"): GlancesSensorEntityDescription(
+    ("fs", "disk_use_percent"): Glances2SensorEntityDescription(
         key="disk_use_percent",
         type="fs",
         translation_key="disk_usage",
         native_unit_of_measurement=PERCENTAGE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("fs", "disk_use"): GlancesSensorEntityDescription(
+    ("fs", "disk_use"): Glances2SensorEntityDescription(
         key="disk_use",
         type="fs",
         translation_key="disk_used",
@@ -49,7 +49,7 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.DATA_SIZE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("fs", "disk_free"): GlancesSensorEntityDescription(
+    ("fs", "disk_free"): Glances2SensorEntityDescription(
         key="disk_free",
         type="fs",
         translation_key="disk_free",
@@ -57,7 +57,7 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.DATA_SIZE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("diskio", "read"): GlancesSensorEntityDescription(
+    ("diskio", "read"): Glances2SensorEntityDescription(
         key="read",
         type="diskio",
         translation_key="diskio_read",
@@ -66,7 +66,7 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.DATA_RATE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("diskio", "write"): GlancesSensorEntityDescription(
+    ("diskio", "write"): Glances2SensorEntityDescription(
         key="write",
         type="diskio",
         translation_key="diskio_write",
@@ -75,14 +75,14 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.DATA_RATE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("mem", "memory_use_percent"): GlancesSensorEntityDescription(
+    ("mem", "memory_use_percent"): Glances2SensorEntityDescription(
         key="memory_use_percent",
         type="mem",
         translation_key="memory_usage",
         native_unit_of_measurement=PERCENTAGE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("mem", "memory_use"): GlancesSensorEntityDescription(
+    ("mem", "memory_use"): Glances2SensorEntityDescription(
         key="memory_use",
         type="mem",
         translation_key="memory_use",
@@ -90,7 +90,7 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.DATA_SIZE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("mem", "memory_free"): GlancesSensorEntityDescription(
+    ("mem", "memory_free"): Glances2SensorEntityDescription(
         key="memory_free",
         type="mem",
         translation_key="memory_free",
@@ -98,14 +98,14 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.DATA_SIZE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("memswap", "swap_use_percent"): GlancesSensorEntityDescription(
+    ("memswap", "swap_use_percent"): Glances2SensorEntityDescription(
         key="swap_use_percent",
         type="memswap",
         translation_key="swap_usage",
         native_unit_of_measurement=PERCENTAGE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("memswap", "swap_use"): GlancesSensorEntityDescription(
+    ("memswap", "swap_use"): Glances2SensorEntityDescription(
         key="swap_use",
         type="memswap",
         translation_key="swap_use",
@@ -113,7 +113,7 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.DATA_SIZE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("memswap", "swap_free"): GlancesSensorEntityDescription(
+    ("memswap", "swap_free"): Glances2SensorEntityDescription(
         key="swap_free",
         type="memswap",
         translation_key="swap_free",
@@ -121,41 +121,41 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.DATA_SIZE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("load", "processor_load"): GlancesSensorEntityDescription(
+    ("load", "processor_load"): Glances2SensorEntityDescription(
         key="processor_load",
         type="load",
         translation_key="processor_load",
         icon=CPU_ICON,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("processcount", "process_running"): GlancesSensorEntityDescription(
+    ("processcount", "process_running"): Glances2SensorEntityDescription(
         key="process_running",
         type="processcount",
         translation_key="process_running",
         icon=CPU_ICON,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("processcount", "process_total"): GlancesSensorEntityDescription(
+    ("processcount", "process_total"): Glances2SensorEntityDescription(
         key="process_total",
         type="processcount",
         translation_key="process_total",
         icon=CPU_ICON,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("processcount", "process_thread"): GlancesSensorEntityDescription(
+    ("processcount", "process_thread"): Glances2SensorEntityDescription(
         key="process_thread",
         type="processcount",
         translation_key="process_threads",
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("processcount", "process_sleeping"): GlancesSensorEntityDescription(
+    ("processcount", "process_sleeping"): Glances2SensorEntityDescription(
         key="process_sleeping",
         type="processcount",
         translation_key="process_sleeping",
         icon=CPU_ICON,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("cpu", "cpu_use_percent"): GlancesSensorEntityDescription(
+    ("cpu", "cpu_use_percent"): Glances2SensorEntityDescription(
         key="cpu_use_percent",
         type="cpu",
         translation_key="cpu_usage",
@@ -163,7 +163,7 @@ SENSOR_TYPES = {
         icon=CPU_ICON,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("sensors", "temperature_core"): GlancesSensorEntityDescription(
+    ("sensors", "temperature_core"): Glances2SensorEntityDescription(
         key="temperature_core",
         type="sensors",
         translation_key="temperature",
@@ -171,7 +171,7 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.TEMPERATURE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("sensors", "temperature_hdd"): GlancesSensorEntityDescription(
+    ("sensors", "temperature_hdd"): Glances2SensorEntityDescription(
         key="temperature_hdd",
         type="sensors",
         translation_key="temperature",
@@ -179,14 +179,14 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.TEMPERATURE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("sensors", "fan_speed"): GlancesSensorEntityDescription(
+    ("sensors", "fan_speed"): Glances2SensorEntityDescription(
         key="fan_speed",
         type="sensors",
         translation_key="fan_speed",
         native_unit_of_measurement=REVOLUTIONS_PER_MINUTE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("sensors", "battery"): GlancesSensorEntityDescription(
+    ("sensors", "battery"): Glances2SensorEntityDescription(
         key="battery",
         type="sensors",
         translation_key="charge",
@@ -194,14 +194,14 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.BATTERY,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("containers", "container_cpu_use"): GlancesSensorEntityDescription(
+    ("containers", "container_cpu_use"): Glances2SensorEntityDescription(
         key="container_cpu_use",
         type="containers",
         translation_key="percontainer_cpu_use",
         native_unit_of_measurement=PERCENTAGE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("containers", "container_memory_use"): GlancesSensorEntityDescription(
+    ("containers", "container_memory_use"): Glances2SensorEntityDescription(
         key="container_memory_use",
         type="containers",
         translation_key="percontainer_memory_use",
@@ -209,20 +209,20 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.DATA_SIZE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("docker", "docker_active"): GlancesSensorEntityDescription(
+    ("docker", "docker_active"): Glances2SensorEntityDescription(
         key="docker_active",
         type="docker",
         translation_key="container_active",
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("docker", "docker_cpu_use"): GlancesSensorEntityDescription(
+    ("docker", "docker_cpu_use"): Glances2SensorEntityDescription(
         key="docker_cpu_use",
         type="docker",
         translation_key="container_cpu_usage",
         native_unit_of_measurement=PERCENTAGE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("docker", "docker_memory_use"): GlancesSensorEntityDescription(
+    ("docker", "docker_memory_use"): Glances2SensorEntityDescription(
         key="docker_memory_use",
         type="docker",
         translation_key="container_memory_used",
@@ -230,44 +230,44 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.DATA_SIZE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    # ("raid", "available"): GlancesSensorEntityDescription(
+    # ("raid", "available"): Glances2SensorEntityDescription(
     #     key="available",
     #     type="raid",
     #     translation_key="raid_available",
     #     state_class=SensorStateClass.MEASUREMENT,
     # ),
-    # ("raid", "status"): GlancesSensorEntityDescription(
+    # ("raid", "status"): Glances2SensorEntityDescription(
     #     key="status",
     #     type="raid",
     #     translation_key="raid_status",
     #     state_class=SensorStateClass.MEASUREMENT,
     # ),
-    # ("raid", "type"): GlancesSensorEntityDescription(
+    # ("raid", "type"): Glances2SensorEntityDescription(
     #     key="type",
     #     type="raid",
     #     translation_key="raid_type",
     #     state_class=SensorStateClass.MEASUREMENT,
     # ),
-    ("raid", "used"): GlancesSensorEntityDescription(
+    ("raid", "used"): Glances2SensorEntityDescription(
         key="used",
         type="raid",
         translation_key="raid_used",
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("computed", "uptime"): GlancesSensorEntityDescription(
+    ("computed", "uptime"): Glances2SensorEntityDescription(
         key="uptime",
         type="computed",
         translation_key="uptime",
         device_class=SensorDeviceClass.TIMESTAMP,
     ),
-    ("gpu", "mem"): GlancesSensorEntityDescription(
+    ("gpu", "mem"): Glances2SensorEntityDescription(
         key="mem",
         type="gpu",
         translation_key="gpu_memory_usage",
         native_unit_of_measurement=PERCENTAGE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("gpu", "proc"): GlancesSensorEntityDescription(
+    ("gpu", "proc"): Glances2SensorEntityDescription(
         key="proc",
         type="gpu",
         translation_key="gpu_processor_usage",
@@ -275,7 +275,7 @@ SENSOR_TYPES = {
         state_class=SensorStateClass.MEASUREMENT,
         suggested_display_precision=1,
     ),
-    ("gpu", "temperature"): GlancesSensorEntityDescription(
+    ("gpu", "temperature"): Glances2SensorEntityDescription(
         key="temperature",
         type="gpu",
         translation_key="temperature",
@@ -283,14 +283,14 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.TEMPERATURE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("gpu", "fan_speed"): GlancesSensorEntityDescription(
+    ("gpu", "fan_speed"): Glances2SensorEntityDescription(
         key="fan_speed",
         type="gpu",
         translation_key="fan_speed",
         native_unit_of_measurement=PERCENTAGE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("network", "rx"): GlancesSensorEntityDescription(
+    ("network", "rx"): Glances2SensorEntityDescription(
         key="rx",
         type="network",
         translation_key="network_rx",
@@ -299,7 +299,7 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.DATA_RATE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("network", "tx"): GlancesSensorEntityDescription(
+    ("network", "tx"): Glances2SensorEntityDescription(
         key="tx",
         type="network",
         translation_key="network_tx",
@@ -308,13 +308,13 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.DATA_RATE,
         state_class=SensorStateClass.MEASUREMENT,
     ), 
-    # ("amps", "result"): GlancesSensorEntityDescription(
+    # ("amps", "result"): Glances2SensorEntityDescription(
     #     key="result",
     #     type="amps",
     #     translation_key="amps_result",
     #     state_class=SensorStateClass.MEASUREMENT,
     # ),
-    ("amps", "resultcount"): GlancesSensorEntityDescription(
+    ("amps", "resultcount"): Glances2SensorEntityDescription(
         key="resultcount",
         type="amps",
         translation_key="amps_resultcount",
@@ -325,13 +325,13 @@ SENSOR_TYPES = {
 
 async def async_setup_entry(
     hass: HomeAssistant,
-    config_entry: GlancesConfigEntry,
+    config_entry: Glances2ConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
     """Set up the Glances sensors."""
 
     coordinator = config_entry.runtime_data
-    entities: list[GlancesSensor] = []
+    entities: list[Glances2Sensor] = []
 
     for sensor_type, sensors in coordinator.data.items():
         _LOGGER.debug("sensor_type async setup : %s",str(sensor_type))
@@ -339,7 +339,7 @@ async def async_setup_entry(
         #     _LOGGER.debug("sensor_label async setup : %s",str(sensor_label))
         if sensor_type in ["fs", "diskio", "sensors", "raid", "gpu", "network","amps","containers"]:
             entities.extend(
-                GlancesSensor(
+                Glances2Sensor(
                     coordinator,
                     sensor_description,
                     sensor_label,
@@ -350,7 +350,7 @@ async def async_setup_entry(
             )
         else:
             entities.extend(
-                GlancesSensor(
+                Glances2Sensor(
                     coordinator,
                     sensor_description,
                 )
@@ -362,17 +362,17 @@ async def async_setup_entry(
     async_add_entities(entities)
 
 
-class GlancesSensor(CoordinatorEntity[GlancesDataUpdateCoordinator], SensorEntity):
-    """Implementation of a Glances sensor."""
+class Glances2Sensor(CoordinatorEntity[Glances2DataUpdateCoordinator], SensorEntity):
+    """Implementation of a Glances2 sensor."""
 
-    entity_description: GlancesSensorEntityDescription
+    entity_description: Glances2SensorEntityDescription
     _attr_has_entity_name = True
     _data_valid: bool = False
 
     def __init__(
         self,
-        coordinator: GlancesDataUpdateCoordinator,
-        description: GlancesSensorEntityDescription,
+        coordinator: Glances2DataUpdateCoordinator,
+        description: Glances2SensorEntityDescription,
         sensor_label: str = "",
     ) -> None:
         """Initialize the sensor."""
@@ -380,10 +380,11 @@ class GlancesSensor(CoordinatorEntity[GlancesDataUpdateCoordinator], SensorEntit
         _LOGGER.debug("GlancesSensor init")
         self._sensor_label = sensor_label
         self.entity_description = description
+        
         _LOGGER.debug("_attr_translation_placeholders %s",str(sensor_label))
         if sensor_label:
             self._attr_translation_placeholders = {"sensor_label": sensor_label}
-            
+            self.attr_name = f"{coordinator.host}-{sensor_label}-{description.key}"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, coordinator.config_entry.entry_id)},
             manufacturer="Glances2",

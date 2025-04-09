@@ -28,7 +28,7 @@ from homeassistant.exceptions import (
 )
 from homeassistant.helpers.httpx_client import get_async_client
 
-from .coordinator import GlancesConfigEntry, GlancesDataUpdateCoordinator
+from .coordinator import GlancesConfigEntry, Glances2DataUpdateCoordinator
 
 PLATFORMS = [Platform.SENSOR]
 
@@ -48,7 +48,7 @@ async def async_setup_entry(
         raise ConfigEntryNotReady from err
     except ServerVersionMismatch as err:
         raise ConfigEntryError(err) from err
-    coordinator = GlancesDataUpdateCoordinator(hass, config_entry, api)
+    coordinator = Glances2DataUpdateCoordinator(hass, config_entry, api)
     await coordinator.async_config_entry_first_refresh()
 
     config_entry.runtime_data = coordinator
