@@ -11,7 +11,7 @@
           "verify_ssl": "[%key:common::config_flow::data::verify_ssl%]"
         },
         "data_description": {
-          "host": "The hostname or IP address of the system running your Glances system monitor."
+          "host": "The hostname or IP address of the system running your Glances2 system monitor."
         }
       },
       "reauth_confirm": {

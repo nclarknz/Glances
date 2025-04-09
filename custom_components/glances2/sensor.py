@@ -155,18 +155,6 @@ SENSOR_TYPES = {
         icon=CPU_ICON,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("amps", "result"): GlancesSensorEntityDescription(
-        key="result",
-        type="amps",
-        translation_key="amps_result",
-        state_class=SensorStateClass.MEASUREMENT,
-    ),
-    ("amps", "resultcount"): GlancesSensorEntityDescription(
-        key="resultcount",
-        type="amps",
-        translation_key="amps_resultcount",
-        state_class=SensorStateClass.MEASUREMENT,
-    ),
     ("cpu", "cpu_use_percent"): GlancesSensorEntityDescription(
         key="cpu_use_percent",
         type="cpu",
@@ -242,24 +230,24 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.DATA_SIZE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("raid", "available"): GlancesSensorEntityDescription(
-        key="available",
-        type="raid",
-        translation_key="raid_available",
-        state_class=SensorStateClass.MEASUREMENT,
-    ),
-    ("raid", "status"): GlancesSensorEntityDescription(
-        key="status",
-        type="raid",
-        translation_key="raid_status",
-        state_class=SensorStateClass.MEASUREMENT,
-    ),
-    ("raid", "type"): GlancesSensorEntityDescription(
-        key="type",
-        type="raid",
-        translation_key="raid_type",
-        state_class=SensorStateClass.MEASUREMENT,
-    ),
+    # ("raid", "available"): GlancesSensorEntityDescription(
+    #     key="available",
+    #     type="raid",
+    #     translation_key="raid_available",
+    #     state_class=SensorStateClass.MEASUREMENT,
+    # ),
+    # ("raid", "status"): GlancesSensorEntityDescription(
+    #     key="status",
+    #     type="raid",
+    #     translation_key="raid_status",
+    #     state_class=SensorStateClass.MEASUREMENT,
+    # ),
+    # ("raid", "type"): GlancesSensorEntityDescription(
+    #     key="type",
+    #     type="raid",
+    #     translation_key="raid_type",
+    #     state_class=SensorStateClass.MEASUREMENT,
+    # ),
     ("raid", "used"): GlancesSensorEntityDescription(
         key="used",
         type="raid",
@@ -319,6 +307,18 @@ SENSOR_TYPES = {
         suggested_unit_of_measurement=UnitOfDataRate.MEGABITS_PER_SECOND,
         device_class=SensorDeviceClass.DATA_RATE,
         state_class=SensorStateClass.MEASUREMENT,
+    ), 
+    # ("amps", "result"): GlancesSensorEntityDescription(
+    #     key="result",
+    #     type="amps",
+    #     translation_key="amps_result",
+    #     state_class=SensorStateClass.MEASUREMENT,
+    # ),
+    ("amps", "resultcount"): GlancesSensorEntityDescription(
+        key="resultcount",
+        type="amps",
+        translation_key="amps_resultcount",
+        state_class=SensorStateClass.MEASUREMENT,
     ),
 }
 
@@ -377,11 +377,13 @@ class GlancesSensor(CoordinatorEntity[GlancesDataUpdateCoordinator], SensorEntit
     ) -> None:
         """Initialize the sensor."""
         super().__init__(coordinator)
+        _LOGGER.debug("GlancesSensor init")
         self._sensor_label = sensor_label
         self.entity_description = description
+        _LOGGER.debug("_attr_translation_placeholders %s",str(sensor_label))
         if sensor_label:
             self._attr_translation_placeholders = {"sensor_label": sensor_label}
-            _LOGGER.debug("_attr_translation_placeholders %s",str(sensor_label))
+            
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, coordinator.config_entry.entry_id)},
             manufacturer="Glances2",
@@ -390,7 +392,6 @@ class GlancesSensor(CoordinatorEntity[GlancesDataUpdateCoordinator], SensorEntit
         self._attr_unique_id = (
             f"{coordinator.config_entry.entry_id}-{sensor_label}-{description.key}"
         )
-        _LOGGER.debug("GlancesSensor")
         _LOGGER.debug("Sensor Label %s",sensor_label)
         _LOGGER.debug("Description %s", description)
         _LOGGER.debug("_attr_unique_id %s",self._attr_unique_id)
