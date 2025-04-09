@@ -2,7 +2,7 @@
 import asyncio
 
 # from glances_api import Glances
-from glances2_api import Glances
+from glances2b_api import Glances
 import re
 
 HOST = "192.168.1.200"
