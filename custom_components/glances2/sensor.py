@@ -29,7 +29,6 @@ from .coordinator import GlancesConfigEntry, GlancesDataUpdateCoordinator
 @dataclass(frozen=True, kw_only=True)
 class GlancesSensorEntityDescription(SensorEntityDescription):
     """Describe Glances sensor entity."""
-
     type: str
 
 
@@ -379,7 +378,7 @@ class GlancesSensor(CoordinatorEntity[GlancesDataUpdateCoordinator], SensorEntit
             self._attr_translation_placeholders = {"sensor_label": sensor_label}
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, coordinator.config_entry.entry_id)},
-            manufacturer="Glances",
+            manufacturer="Glances2",
             name=coordinator.host,
         )
         self._attr_unique_id = (

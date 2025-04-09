@@ -46,11 +46,29 @@
       "container_memory_used": {
         "default": "mdi:docker"
       },
+      "percontainer_cpu_use": {
+        "default": "mdi:bathtub"
+      },
+      "percontainer_memory_use": {
+        "default": "mdi:memory-arrow-down"
+      },
+      "amps_result": {
+        "default": "mdi:amplifier"
+      },
+      "amps_resultcount": {
+        "default": "mdi:update"
+      },
       "raid_available": {
         "default": "mdi:harddisk"
       },
       "raid_used": {
         "default": "mdi:harddisk"
+      },
+      "raid_status": {
+        "default": "mdi:list-status"
+      },
+      "raid_type": {
+        "default": "mdi:format-list-bulleted-type"
       },
       "uptime": {
         "default": "mdi:clock-time-eight-outline"
