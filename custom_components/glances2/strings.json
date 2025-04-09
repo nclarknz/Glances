@@ -104,11 +104,29 @@
       "container_memory_used": {
         "name": "Containers memory used"
       },
+      "percontainer_cpu_use": {
+        "name": "{sensor label} CPU usage"
+      },
+      "percontainer_memory_use": {
+        "name": "{sensor label} memory used"
+      },
       "raid_available": {
         "name": "{sensor_label} available"
       },
       "raid_used": {
         "name": "{sensor_label} used"
+      },
+      "raid_type": {
+        "name": "{sensor_label} type"
+      },
+      "raid_status": {
+        "name": "{sensor_label} status"
+      },
+      "amps_result": {
+        "name": "{sensor_label} Amps Result"
+      },
+      "amps_resultcount": {
+        "name": "{sensor_label} Amps Result Count"
       },
       "uptime": {
         "name": "Uptime"

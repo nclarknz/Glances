@@ -158,7 +158,13 @@ SENSOR_TYPES = {
     ("amps", "result"): GlancesSensorEntityDescription(
         key="result",
         type="amps",
-        translation_key="result",
+        translation_key="amps_result",
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    ("amps", "resultcount"): GlancesSensorEntityDescription(
+        key="resultcount",
+        type="amps",
+        translation_key="amps_resultcount",
         state_class=SensorStateClass.MEASUREMENT,
     ),
     ("cpu", "cpu_use_percent"): GlancesSensorEntityDescription(
@@ -203,14 +209,14 @@ SENSOR_TYPES = {
     ("containers", "container_cpu_use"): GlancesSensorEntityDescription(
         key="container_cpu_use",
         type="containers",
-        translation_key="container_cpu_use",
+        translation_key="percontainer_cpu_use",
         native_unit_of_measurement=PERCENTAGE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     ("containers", "container_memory_use"): GlancesSensorEntityDescription(
         key="container_memory_use",
         type="containers",
-        translation_key="container_memory_use",
+        translation_key="percontainer_memory_use",
         native_unit_of_measurement=UnitOfInformation.MEBIBYTES,
         device_class=SensorDeviceClass.DATA_SIZE,
         state_class=SensorStateClass.MEASUREMENT,
@@ -240,6 +246,18 @@ SENSOR_TYPES = {
         key="available",
         type="raid",
         translation_key="raid_available",
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    ("raid", "status"): GlancesSensorEntityDescription(
+        key="status",
+        type="raid",
+        translation_key="raid_status",
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    ("raid", "type"): GlancesSensorEntityDescription(
+        key="type",
+        type="raid",
+        translation_key="raid_type",
         state_class=SensorStateClass.MEASUREMENT,
     ),
     ("raid", "used"): GlancesSensorEntityDescription(
