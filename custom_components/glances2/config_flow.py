@@ -27,7 +27,7 @@ from .const import DEFAULT_HOST, DEFAULT_PORT, DOMAIN
 DATA_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_HOST, default=DEFAULT_HOST): str,
-        vol.Optional(CONF_USERNAME): str,
+        vol.Optional(CONF_USERNAME, default="Test"): str,
         vol.Optional(CONF_PASSWORD): str,
         vol.Required(CONF_PORT, default=DEFAULT_PORT): int,
         vol.Optional(CONF_SSL, default=False): bool,

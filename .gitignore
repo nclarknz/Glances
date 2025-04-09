@@ -1,3 +1,4 @@
 glances2b_api/*
 example.py
 test.py
+__pycache__/*
