@@ -24,7 +24,7 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import CPU_ICON, DOMAIN
 from .coordinator import GlancesConfigEntry, GlancesDataUpdateCoordinator
-
+_LOGGER = logging.getLogger(__name__)
 
 @dataclass(frozen=True, kw_only=True)
 class GlancesSensorEntityDescription(SensorEntityDescription):
@@ -333,6 +333,11 @@ async def async_setup_entry(
     entities: list[GlancesSensor] = []
 
     for sensor_type, sensors in coordinator.data.items():
+        _LOGGER.debug("sensor_type : {}".format(sensor_type))
+        for sensor_label, params in sensors:
+            _LOGGER.debug("\tsensor_label : {}".format(sensor_label))
+            for param in params:
+                _LOGGER.debug("\t\param : {}".format(param))
         if sensor_type in ["fs", "diskio", "sensors", "raid", "gpu", "network","amps","containers"]:
             entities.extend(
                 GlancesSensor(
@@ -340,7 +345,7 @@ async def async_setup_entry(
                     sensor_description,
                     sensor_label,
                 )
-                for sensor_label, params in sensors.items()
+                for sensor_label, params in sensors.items()   
                 for param in params
                 if (sensor_description := SENSOR_TYPES.get((sensor_type, param)))
             )
@@ -384,6 +389,7 @@ class GlancesSensor(CoordinatorEntity[GlancesDataUpdateCoordinator], SensorEntit
         self._attr_unique_id = (
             f"{coordinator.config_entry.entry_id}-{sensor_label}-{description.key}"
         )
+        
         self._update_native_value()
 
     @property
@@ -400,6 +406,8 @@ class GlancesSensor(CoordinatorEntity[GlancesDataUpdateCoordinator], SensorEntit
     def _update_native_value(self) -> None:
         """Update sensor native value from coordinator data."""
         data = self.coordinator.data.get(self.entity_description.type)
+        _LOGGER.debug("data: {}".format(data))
+        _LOGGER.debug("self.entity_description.type {}".format(self.entity_description.type))
         if data and (dict_val := data.get(self._sensor_label)):
             self._attr_native_value = dict_val.get(self.entity_description.key)
         elif data and (self.entity_description.key in data):
