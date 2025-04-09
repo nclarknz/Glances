@@ -1,6 +1,7 @@
 """Support gathering system information of hosts which are running glances."""
 
 from __future__ import annotations
+import logging
 
 from dataclasses import dataclass
 
@@ -333,11 +334,11 @@ async def async_setup_entry(
     entities: list[GlancesSensor] = []
 
     for sensor_type, sensors in coordinator.data.items():
-        _LOGGER.debug("sensor_type : {}".format(sensor_type))
+        _LOGGER.debug("sensor_type : %s",str(sensor_type))
         for sensor_label, params in sensors:
-            _LOGGER.debug("\tsensor_label : {}".format(sensor_label))
+            _LOGGER.debug("\tsensor_label : %s",str(sensor_label))
             for param in params:
-                _LOGGER.debug("\t\param : {}".format(param))
+                _LOGGER.debug("param : %s",str(param))
         if sensor_type in ["fs", "diskio", "sensors", "raid", "gpu", "network","amps","containers"]:
             entities.extend(
                 GlancesSensor(
@@ -406,8 +407,8 @@ class GlancesSensor(CoordinatorEntity[GlancesDataUpdateCoordinator], SensorEntit
     def _update_native_value(self) -> None:
         """Update sensor native value from coordinator data."""
         data = self.coordinator.data.get(self.entity_description.type)
-        _LOGGER.debug("data: {}".format(data))
-        _LOGGER.debug("self.entity_description.type {}".format(self.entity_description.type))
+        _LOGGER.debug("data: %s",str(data))
+        _LOGGER.debug("self.entity_description.type %s",str(self.entity_description.type))
         if data and (dict_val := data.get(self._sensor_label)):
             self._attr_native_value = dict_val.get(self.entity_description.key)
         elif data and (self.entity_description.key in data):
