@@ -391,7 +391,7 @@ class Glances2Sensor(CoordinatorEntity[Glances2DataUpdateCoordinator], SensorEnt
             manufacturer="Glances2",
             name=coordinator.host,
         )
-        self._attr_name = f"{coordinator.host}-{sensor_label}-{description.key}"
+        self._attr_name = f"{sensor_label}_{description.key}"
         self._attr_unique_id = (
             f"{coordinator.config_entry.entry_id}-{sensor_label}-{description.key}"
         )
