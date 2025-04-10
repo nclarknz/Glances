@@ -447,8 +447,8 @@ class Glances2Sensor(CoordinatorEntity[Glances2DataUpdateCoordinator], SensorEnt
         elif data and (self.entity_description.key in data):
             self._attr_native_value = data.get(self.entity_description.key)
         else:
-            # self._attr_native_value = None
-            self._attr_native_value = 'None'
+            self._attr_native_value = None
+            # self._attr_native_value = 'None'
         self._update_data_valid()
         # _LOGGER.debug("data_valid: %s",str(self._data_valid))
 
