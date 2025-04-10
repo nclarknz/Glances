@@ -296,14 +296,14 @@ SENSOR_TYPES = {
         translation_key="amps_resultcount",
         state_class=SensorStateClass.MEASUREMENT,
     ),
+    ("amps", "result"): Glances2SensorEntityDescription(
+        key="result",
+        type="amps",
+        translation_key="amps_result",
+    ),
 }
 
-    # ("amps", "result"): Glances2SensorEntityDescription(
-    #     key="result",
-    #     type="amps",
-    #     translation_key="amps_result",
-    #     state_class=SensorStateClass.MEASUREMENT,
-    # ),
+
    
     # ("raid", "available"): Glances2SensorEntityDescription(
     #     key="available",
@@ -378,27 +378,29 @@ class Glances2Sensor(CoordinatorEntity[Glances2DataUpdateCoordinator], SensorEnt
     ) -> None:
         """Initialize the sensor."""
         super().__init__(coordinator)
-        _LOGGER.debug("Glances2Sensor init")
+        # _LOGGER.debug("Glances2Sensor init")
         self._sensor_label = sensor_label
         self.entity_description = description
         
-        _LOGGER.debug("_attr_translation_placeholders %s",str(sensor_label))
+        # _LOGGER.debug("_attr_translation_placeholders %s",str(sensor_label))
         if sensor_label:
             self._attr_translation_placeholders = {"sensor_label": sensor_label}
-            
+            self._attr_name = f"{sensor_label}_{description.key}"
+        else:
+            self._attr_name = f"{description.key}"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, coordinator.config_entry.entry_id)},
             manufacturer="Glances2",
             name=coordinator.host,
         )
-        self._attr_name = f"{sensor_label}_{description.key}"
+        # self._attr_name = f"{sensor_label}_{description.key}"
         self._attr_unique_id = (
             f"{coordinator.config_entry.entry_id}-{sensor_label}-{description.key}"
         )
-        _LOGGER.debug("Sensor Label %s",sensor_label)
-        _LOGGER.debug("Description %s", description)
-        _LOGGER.debug("_attr_unique_id %s",self._attr_unique_id)
-        # _LOGGER.debug("description name %s",self.entity_description.name)
+        # _LOGGER.debug("Sensor Label %s",sensor_label)
+        # _LOGGER.debug("Description %s", description)
+        # _LOGGER.debug("_attr_unique_id %s",self._attr_unique_id)
+        # # _LOGGER.debug("description name %s",self.entity_description.name)
         self._update_native_value()
 
     @property
@@ -431,11 +433,9 @@ class Glances2Sensor(CoordinatorEntity[Glances2DataUpdateCoordinator], SensorEnt
         # _LOGGER.debug("data_valid: %s",str(self._data_valid))
 
     def _update_data_valid(self) -> None:
-        self._data_valid = self._attr_native_value is not None and (
-            not self._numeric_state_expected
-            or isinstance(self._attr_native_value, (int, float))
-            or (
-                isinstance(self._attr_native_value, str)
-                and self._attr_native_value.isnumeric()
-            )
-        )
+        self._data_valid = self._attr_native_value is not None 
+        # and (
+        #     not self._numeric_state_expected
+        #     or isinstance(self._attr_native_value, (int, float))
+        #     or (isinstance(self._attr_native_value, str)and self._attr_native_value.isnumeric())
+        # )
