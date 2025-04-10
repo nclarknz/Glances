@@ -357,7 +357,7 @@ async def async_setup_entry(
         _LOGGER.debug("sensor_type async setup : %s",str(sensor_type))
         # for sensor_label in sensors:
         #     _LOGGER.debug("sensor_label async setup : %s",str(sensor_label))
-        if sensor_type in ["fs", "diskio", "sensors", "raid", "gpu", "network","amps","containers"]:
+        if sensor_type in ["fs", "diskio", "sensors", "raid", "gpu", "network","amps","containers","load"]:
             entities.extend(
                 Glances2Sensor(
                     coordinator,
@@ -447,7 +447,8 @@ class Glances2Sensor(CoordinatorEntity[Glances2DataUpdateCoordinator], SensorEnt
         elif data and (self.entity_description.key in data):
             self._attr_native_value = data.get(self.entity_description.key)
         else:
-            self._attr_native_value = None
+            # self._attr_native_value = None
+            self._attr_native_value = 'None'
         self._update_data_valid()
         # _LOGGER.debug("data_valid: %s",str(self._data_valid))
 
