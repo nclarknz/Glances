@@ -301,28 +301,26 @@ SENSOR_TYPES = {
         type="amps",
         translation_key="amps_result",
     ),
+    ("raid", "available"): Glances2SensorEntityDescription(
+        key="available",
+        type="raid",
+        translation_key="raid_available",
+    ),
+    ("raid", "status"): Glances2SensorEntityDescription(
+        key="status",
+        type="raid",
+        translation_key="raid_status",
+    ),
+    ("raid", "type"): Glances2SensorEntityDescription(
+        key="type",
+        type="raid",
+        translation_key="raid_type",
+    ),
 }
 
 
    
-    # ("raid", "available"): Glances2SensorEntityDescription(
-    #     key="available",
-    #     type="raid",
-    #     translation_key="raid_available",
-    #     state_class=SensorStateClass.MEASUREMENT,
-    # ),
-    # ("raid", "status"): Glances2SensorEntityDescription(
-    #     key="status",
-    #     type="raid",
-    #     translation_key="raid_status",
-    #     state_class=SensorStateClass.MEASUREMENT,
-    # ),
-    # ("raid", "type"): Glances2SensorEntityDescription(
-    #     key="type",
-    #     type="raid",
-    #     translation_key="raid_type",
-    #     state_class=SensorStateClass.MEASUREMENT,
-    # ),
+
 
 async def async_setup_entry(
     hass: HomeAssistant,
