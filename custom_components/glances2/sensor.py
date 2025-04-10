@@ -397,7 +397,7 @@ class Glances2Sensor(CoordinatorEntity[Glances2DataUpdateCoordinator], SensorEnt
         _LOGGER.debug("Sensor Label %s",sensor_label)
         _LOGGER.debug("Description %s", description)
         _LOGGER.debug("_attr_unique_id %s",self._attr_unique_id)
-        _LOGGER.debug("description name %s",self.entity_description.name)
+        # _LOGGER.debug("description name %s",self.entity_description.name)
         self._update_native_value()
 
     @property
