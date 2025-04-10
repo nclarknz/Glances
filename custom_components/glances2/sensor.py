@@ -385,8 +385,7 @@ class Glances2Sensor(CoordinatorEntity[Glances2DataUpdateCoordinator], SensorEnt
         _LOGGER.debug("_attr_translation_placeholders %s",str(sensor_label))
         if sensor_label:
             self._attr_translation_placeholders = {"sensor_label": sensor_label}
-            self.attr_name = f"{coordinator.host}-{sensor_label}-{description.key}"
-            self.entity_description.name = f"{coordinator.host}-{sensor_label}-{description.key}"
+            self._attr_name = f"{coordinator.host}-{sensor_label}-{description.key}"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, coordinator.config_entry.entry_id)},
             manufacturer="Glances2",
