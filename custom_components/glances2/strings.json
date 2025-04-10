@@ -68,6 +68,12 @@
       "processor_load": {
         "name": "CPU load"
       },
+      "processor_load_1m": {
+        "name": "CPU load 1m"
+      },
+      "processor_load_5m": {
+        "name": "CPU load 5m"
+      },
       "process_running": {
         "name": "Running"
       },
