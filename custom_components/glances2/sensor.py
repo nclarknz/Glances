@@ -213,6 +213,11 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.BATTERY,
         state_class=SensorStateClass.MEASUREMENT,
     ),
+    ("computed", "containers"): Glances2SensorEntityDescription(
+        key="containers",
+        type="containers",
+        translation_key="containers",
+    ),
     ("containers", "container_cpu_use"): Glances2SensorEntityDescription(
         key="container_cpu_use",
         type="containers",
@@ -357,7 +362,7 @@ async def async_setup_entry(
         _LOGGER.debug("sensor_type async setup : %s",str(sensor_type))
         # for sensor_label in sensors:
         #     _LOGGER.debug("sensor_label async setup : %s",str(sensor_label))
-        if sensor_type in ["fs", "diskio", "sensors", "raid", "gpu", "network","amps","containers"]:
+        if sensor_type in ["fs", "diskio", "sensors", "raid", "gpu", "network","amps"]:
             entities.extend(
                 Glances2Sensor(
                     coordinator,
