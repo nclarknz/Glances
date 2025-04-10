@@ -230,24 +230,6 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.DATA_SIZE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    # ("raid", "available"): Glances2SensorEntityDescription(
-    #     key="available",
-    #     type="raid",
-    #     translation_key="raid_available",
-    #     state_class=SensorStateClass.MEASUREMENT,
-    # ),
-    # ("raid", "status"): Glances2SensorEntityDescription(
-    #     key="status",
-    #     type="raid",
-    #     translation_key="raid_status",
-    #     state_class=SensorStateClass.MEASUREMENT,
-    # ),
-    # ("raid", "type"): Glances2SensorEntityDescription(
-    #     key="type",
-    #     type="raid",
-    #     translation_key="raid_type",
-    #     state_class=SensorStateClass.MEASUREMENT,
-    # ),
     ("raid", "used"): Glances2SensorEntityDescription(
         key="used",
         type="raid",
@@ -308,12 +290,6 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.DATA_RATE,
         state_class=SensorStateClass.MEASUREMENT,
     ), 
-    # ("amps", "result"): Glances2SensorEntityDescription(
-    #     key="result",
-    #     type="amps",
-    #     translation_key="amps_result",
-    #     state_class=SensorStateClass.MEASUREMENT,
-    # ),
     ("amps", "resultcount"): Glances2SensorEntityDescription(
         key="resultcount",
         type="amps",
@@ -322,6 +298,31 @@ SENSOR_TYPES = {
     ),
 }
 
+    # ("amps", "result"): Glances2SensorEntityDescription(
+    #     key="result",
+    #     type="amps",
+    #     translation_key="amps_result",
+    #     state_class=SensorStateClass.MEASUREMENT,
+    # ),
+   
+    # ("raid", "available"): Glances2SensorEntityDescription(
+    #     key="available",
+    #     type="raid",
+    #     translation_key="raid_available",
+    #     state_class=SensorStateClass.MEASUREMENT,
+    # ),
+    # ("raid", "status"): Glances2SensorEntityDescription(
+    #     key="status",
+    #     type="raid",
+    #     translation_key="raid_status",
+    #     state_class=SensorStateClass.MEASUREMENT,
+    # ),
+    # ("raid", "type"): Glances2SensorEntityDescription(
+    #     key="type",
+    #     type="raid",
+    #     translation_key="raid_type",
+    #     state_class=SensorStateClass.MEASUREMENT,
+    # ),
 
 async def async_setup_entry(
     hass: HomeAssistant,
@@ -385,6 +386,7 @@ class Glances2Sensor(CoordinatorEntity[Glances2DataUpdateCoordinator], SensorEnt
         if sensor_label:
             self._attr_translation_placeholders = {"sensor_label": sensor_label}
             self.attr_name = f"{coordinator.host}-{sensor_label}-{description.key}"
+            self.entity_description.name = f"{coordinator.host}-{sensor_label}-{description.key}"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, coordinator.config_entry.entry_id)},
             manufacturer="Glances2",
@@ -396,7 +398,7 @@ class Glances2Sensor(CoordinatorEntity[Glances2DataUpdateCoordinator], SensorEnt
         _LOGGER.debug("Sensor Label %s",sensor_label)
         _LOGGER.debug("Description %s", description)
         _LOGGER.debug("_attr_unique_id %s",self._attr_unique_id)
-
+        _LOGGER.debug("description name %s",self.entity_description.name)
         self._update_native_value()
 
     @property

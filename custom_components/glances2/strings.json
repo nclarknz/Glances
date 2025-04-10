@@ -122,12 +122,6 @@
       "raid_status": {
         "name": "{sensor_label} status"
       },
-      "amps_result": {
-        "name": "{sensor_label} Amps Result"
-      },
-      "amps_resultcount": {
-        "name": "{sensor_label} Amps Result Count"
-      },
       "uptime": {
         "name": "Uptime"
       },
@@ -142,6 +136,9 @@
       },
       "network_tx": {
         "name": "{sensor_label} TX"
+      },
+      "amps_resultcount": {
+        "name": "{sensor_label} result count"
       }
     }
   }
