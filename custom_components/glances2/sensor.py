@@ -216,7 +216,6 @@ SENSOR_TYPES = {
         key="containerslist",
         type="containers",
         translation_key="containerslist",
-        extra_state_attributes = "",
     ),
     ("containers", "container_cpu_use"): Glances2SensorEntityDescription(
         key="container_cpu_use",
