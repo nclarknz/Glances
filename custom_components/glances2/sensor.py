@@ -217,7 +217,7 @@ SENSOR_TYPES = {
         state_class=SensorStateClass.MEASUREMENT,
     ),
     ("containers", "containers"): Glances2SensorEntityDescription(
-        key="containers",
+        key="name",
         type="containers",
         translation_key="containers",
     ),
@@ -377,19 +377,26 @@ async def async_setup_entry(
                 if (sensor_description := SENSOR_TYPES.get((sensor_type, param)))
             )
         else:
+            for sensor in sensors:
+               _LOGGER.debug("   sensor async setup : %s",str(sensor))
             if sensor_type in ["containers"]:
-                _LOGGER.debug("sensor async setup for : %s",str(sensor_type))
-                for sensor in sensors:
-                    _LOGGER.debug("sensor async setup : %s",str(sensor))
-                    
-            entities.extend(
-                Glances2Sensor(
-                    coordinator,
-                    sensor_description,
+                entities.extend(
+                    Glances2Sensor(
+                        coordinator,
+                        sensor_description,
+                    )
+                    for sensor in sensors
+                    # if (sensor_description := SENSOR_TYPES.get((sensor_type, sensor)))
                 )
-                for sensor in sensors
-                if (sensor_description := SENSOR_TYPES.get((sensor_type, sensor)))
-            )
+            else:        
+                entities.extend(
+                    Glances2Sensor(
+                        coordinator,
+                        sensor_description,
+                    )
+                    for sensor in sensors
+                    if (sensor_description := SENSOR_TYPES.get((sensor_type, sensor)))
+                )
 
            
     async_add_entities(entities)
