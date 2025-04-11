@@ -31,6 +31,9 @@ _LOGGER = logging.getLogger(__name__)
 class Glances2SensorEntityDescription(SensorEntityDescription):
     """Describe Glances sensor entity."""
     type: str
+    type: dict
+    type: list
+
 
 
 SENSOR_TYPES = {
