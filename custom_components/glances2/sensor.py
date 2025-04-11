@@ -216,7 +216,7 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.BATTERY,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("computed", "containers"): Glances2SensorEntityDescription(
+    ("containers", "containers"): Glances2SensorEntityDescription(
         key="containers",
         type="containers",
         translation_key="containers",
@@ -377,6 +377,7 @@ async def async_setup_entry(
                 if (sensor_description := SENSOR_TYPES.get((sensor_type, param)))
             )
         else:
+            
             entities.extend(
                 Glances2Sensor(
                     coordinator,
