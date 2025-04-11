@@ -422,7 +422,7 @@ class Glances2Sensor(CoordinatorEntity[Glances2DataUpdateCoordinator], SensorEnt
             f"{coordinator.config_entry.entry_id}-{sensor_label}-{description.key}"
         )
         if(sensor_label=="containers"):
-            self._attr_extra_state_attributes = { "Test" : {"Hello"}}
+            self._attr_extra_state_attributes = {"Test" : "Hello"}
         # _LOGGER.debug("Sensor Label %s",sensor_label)
         # _LOGGER.debug("Description %s", description)
         # _LOGGER.debug("_attr_unique_id %s",self._attr_unique_id)
@@ -456,8 +456,9 @@ class Glances2Sensor(CoordinatorEntity[Glances2DataUpdateCoordinator], SensorEnt
         else:
             self._attr_native_value = None
             # self._attr_native_value = 'None'
-        if(self._sensor_label == "containers"):
-            self._attr_extra_state_attributes = {data.get(self.entity_description.key)}
+        if(self._sensor_label == "containers" or self.entity_description.key == "containerslist"):
+            _LOGGER.debug("Adding extra info for containers: %s",str(data))
+            self._attr_extra_state_attributes = {"ContainerInfo" : data.get(self.entity_description.key)}
             self._attr_native_value = "Docker Info"
         self._update_data_valid()
         # _LOGGER.debug("data_valid: %s",str(self._data_valid))
