@@ -8,5 +8,5 @@
   "loggers": ["glances_api"],
   "requirements": ["glances-api==0.8.0"],
   "integration_type": "hub",
-  "version": "4.2.3"
+  "version": "4.2.4"
 }

@@ -377,7 +377,11 @@ async def async_setup_entry(
                 if (sensor_description := SENSOR_TYPES.get((sensor_type, param)))
             )
         else:
-            
+            if sensor_type in ["containers"]:
+                _LOGGER.debug("sensor async setup for : %s",str(sensor_type))
+                for sensor in sensors:
+                    _LOGGER.debug("sensor async setup : %s",str(sensor))
+                    
             entities.extend(
                 Glances2Sensor(
                     coordinator,
