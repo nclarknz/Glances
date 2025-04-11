@@ -421,8 +421,8 @@ class Glances2Sensor(CoordinatorEntity[Glances2DataUpdateCoordinator], SensorEnt
         self._attr_unique_id = (
             f"{coordinator.config_entry.entry_id}-{sensor_label}-{description.key}"
         )
-        if(sensor_label=="containers"):
-            self._attr_extra_state_attributes = { }
+        # if(sensor_label=="containers"):
+        #     self._attr_extra_state_attributes = { }
         # _LOGGER.debug("Sensor Label %s",sensor_label)
         # _LOGGER.debug("Description %s", description)
         # _LOGGER.debug("_attr_unique_id %s",self._attr_unique_id)
