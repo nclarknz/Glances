@@ -216,10 +216,10 @@ SENSOR_TYPES = {
         device_class=SensorDeviceClass.BATTERY,
         state_class=SensorStateClass.MEASUREMENT,
     ),
-    ("containers", "containers"): Glances2SensorEntityDescription(
-        key="name",
+    ("containers", "containerslist"): Glances2SensorEntityDescription(
+        key="containerslist",
         type="containers",
-        translation_key="containers",
+        translation_key="containerslist",
     ),
     ("containers", "container_cpu_use"): Glances2SensorEntityDescription(
         key="container_cpu_use",
@@ -363,8 +363,6 @@ async def async_setup_entry(
 
     for sensor_type, sensors in coordinator.data.items():
         _LOGGER.debug("sensor_type async setup : %s",str(sensor_type))
-        # for sensor_label in sensors:
-        #     _LOGGER.debug("sensor_label async setup : %s",str(sensor_label))
         if sensor_type in ["fs", "diskio", "sensors", "raid", "gpu", "network","amps"]:
             entities.extend(
                 Glances2Sensor(
@@ -379,24 +377,15 @@ async def async_setup_entry(
         else:
             for sensor in sensors:
                _LOGGER.debug("   sensor async setup : %s",str(sensor))
-            if sensor_type in ["containers"]:
-                entities.extend(
-                    Glances2Sensor(
-                        coordinator,
-                        sensor_description,
-                    )
-                    for sensor in sensors
-                    # if (sensor_description := SENSOR_TYPES.get((sensor_type, sensor)))
+   
+            entities.extend(
+                Glances2Sensor(
+                    coordinator,
+                    sensor_description,
                 )
-            else:        
-                entities.extend(
-                    Glances2Sensor(
-                        coordinator,
-                        sensor_description,
-                    )
-                    for sensor in sensors
-                    if (sensor_description := SENSOR_TYPES.get((sensor_type, sensor)))
-                )
+                for sensor in sensors
+                if (sensor_description := SENSOR_TYPES.get((sensor_type, sensor)))
+            )
 
            
     async_add_entities(entities)

@@ -107,7 +107,7 @@
       "container_cpu_usage": {
         "name": "Containers CPU usage"
       },
-      "containers": {
+      "containerslist": {
         "name": "Containers List"
       },
       "container_memory_used": {
