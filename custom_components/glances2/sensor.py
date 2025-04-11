@@ -31,10 +31,6 @@ _LOGGER = logging.getLogger(__name__)
 class Glances2SensorEntityDescription(SensorEntityDescription):
     """Describe Glances sensor entity."""
     type: str
-    type: dict
-    type: list
-
-
 
 SENSOR_TYPES = {
     ("fs", "disk_use_percent"): Glances2SensorEntityDescription(
@@ -220,6 +216,7 @@ SENSOR_TYPES = {
         key="containerslist",
         type="containers",
         translation_key="containerslist",
+        extra_state_attributes = "",
     ),
     ("containers", "container_cpu_use"): Glances2SensorEntityDescription(
         key="container_cpu_use",
@@ -377,7 +374,6 @@ async def async_setup_entry(
         else:
             for sensor in sensors:
                _LOGGER.debug("   sensor async setup : %s",str(sensor))
-   
             entities.extend(
                 Glances2Sensor(
                     coordinator,
@@ -416,6 +412,7 @@ class Glances2Sensor(CoordinatorEntity[Glances2DataUpdateCoordinator], SensorEnt
             self._attr_name = f"{sensor_label}_{description.key}"
         else:
             self._attr_name = f"{description.key}"
+
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, coordinator.config_entry.entry_id)},
             manufacturer="Glances2",
@@ -425,6 +422,8 @@ class Glances2Sensor(CoordinatorEntity[Glances2DataUpdateCoordinator], SensorEnt
         self._attr_unique_id = (
             f"{coordinator.config_entry.entry_id}-{sensor_label}-{description.key}"
         )
+        if(sensor_label=="containers"):
+            self._attr_extra_state_attributes = { }
         # _LOGGER.debug("Sensor Label %s",sensor_label)
         # _LOGGER.debug("Description %s", description)
         # _LOGGER.debug("_attr_unique_id %s",self._attr_unique_id)
@@ -458,6 +457,9 @@ class Glances2Sensor(CoordinatorEntity[Glances2DataUpdateCoordinator], SensorEnt
         else:
             self._attr_native_value = None
             # self._attr_native_value = 'None'
+        if(self._sensor_label == "containers"):
+            self._attr_extra_state_attributes = {data.get(self.entity_description.key)}
+            self._attr_native_value = "Docker Info"
         self._update_data_valid()
         # _LOGGER.debug("data_valid: %s",str(self._data_valid))
 
