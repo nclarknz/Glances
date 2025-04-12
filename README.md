@@ -12,23 +12,23 @@ In my case this is pointing at the localhost entity of the container slist, but 
 This is the basic code, but can be prettified using HTML tag markup if required.
 
 type: markdown
-content: >+
-  <table>
-  <tr>
-  <th>ID</th><th>Name</th><th>Status</th><th>Cpu</th><th>Memory</th><th>Uptime</th><th>Engine</th>
-  </tr>
+content: &gt;+
+##  &lt;table&gt;
+##  &lt;tr&gt;
+##  &lt;th&gt;ID&lt;/th&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;th&gt;Cpu&lt;/th&gt;&lt;th&gt;Memory&lt;/th&gt;&lt;th&gt;Uptime&lt;/th&gt;&lt;th&gt;Engine&lt;/th&gt;
+##  &lt;/tr&gt;
   {% set e_list = state_attr('sensor.localhost_containerslist', 'ContainerInfo')
   | sort(attribute= 's') | list %}
   {% set l_count = e_list | count %}
   {% for x in e_list %}
-    <tr>
-    <td>{{x.i[:4]}}</td>
-    <td>{{x.n}}</td>
-    <td>{{x.s}}</td>
-    <td>{{x.c}}</td>
-    <td>{{x.m}}</td>
-    <td>{{x.u}}</td>
-    <td>{{x.e}}</td>
-    </tr>
+##    &lt;tr&gt;
+##    &lt;td&gt;{{x.i[:4]}}&lt;/td&gt;
+##    &lt;td&gt;{{x.n}}&lt;/td&gt;
+##   &lt;td&gt;{{x.s}}&lt;/td&gt;
+##    &lt;td&gt;{{x.c}}&lt;/td&gt;
+##    &lt;td&gt;{{x.m}}&lt;/td&gt;
+##    &lt;td&gt;{{x.u}}&lt;/td&gt;
+##    &lt;td&gt;{{x.e}}&lt;/td&gt;
+##    &lt;/tr&gt;
   {% endfor %}
-  </table>
+##  &lt;/table&gt;
