@@ -1,5 +1,6 @@
-glances2b_api/*
 example.py
 test.py
 __pycache__/*
 output.json
+.gitignore
+glances2b_api/__pycache__

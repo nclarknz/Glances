@@ -217,21 +217,6 @@ SENSOR_TYPES = {
         type="containers",
         translation_key="containerslist",
     ),
-    ("containers", "container_cpu_use"): Glances2SensorEntityDescription(
-        key="container_cpu_use",
-        type="containers",
-        translation_key="percontainer_cpu_use",
-        native_unit_of_measurement=PERCENTAGE,
-        state_class=SensorStateClass.MEASUREMENT,
-    ),
-    ("containers", "container_memory_use"): Glances2SensorEntityDescription(
-        key="container_memory_use",
-        type="containers",
-        translation_key="percontainer_memory_use",
-        native_unit_of_measurement=UnitOfInformation.MEBIBYTES,
-        device_class=SensorDeviceClass.DATA_SIZE,
-        state_class=SensorStateClass.MEASUREMENT,
-    ),
     ("docker", "docker_active"): Glances2SensorEntityDescription(
         key="docker_active",
         type="docker",
@@ -405,7 +390,6 @@ class Glances2Sensor(CoordinatorEntity[Glances2DataUpdateCoordinator], SensorEnt
         self._sensor_label = sensor_label
         self.entity_description = description
         
-        # _LOGGER.debug("_attr_translation_placeholders %s",str(sensor_label))
         if sensor_label:
             self._attr_translation_placeholders = {"sensor_label": sensor_label}
             self._attr_name = f"{sensor_label}_{description.key}"
@@ -421,12 +405,8 @@ class Glances2Sensor(CoordinatorEntity[Glances2DataUpdateCoordinator], SensorEnt
         self._attr_unique_id = (
             f"{coordinator.config_entry.entry_id}-{sensor_label}-{description.key}"
         )
-        if(sensor_label=="containers"):
-            self._attr_extra_state_attributes = {"Test" : "Hello"}
-        # _LOGGER.debug("Sensor Label %s",sensor_label)
-        # _LOGGER.debug("Description %s", description)
-        # _LOGGER.debug("_attr_unique_id %s",self._attr_unique_id)
-        # # _LOGGER.debug("description name %s",self.entity_description.name)
+        # if(sensor_label=="containers"):
+        #     self._attr_extra_state_attributes = {"Test" : "Hello"}
         self._update_native_value()
 
     @property
@@ -443,11 +423,6 @@ class Glances2Sensor(CoordinatorEntity[Glances2DataUpdateCoordinator], SensorEnt
     def _update_native_value(self) -> None:
         """Update sensor native value from coordinator data."""
         data = self.coordinator.data.get(self.entity_description.type)
-        # _LOGGER.debug("entity_description.type %s",str(self.entity_description.type))
-        # _LOGGER.debug("entity_description.key %s",str(self.entity_description.key))
-        # _LOGGER.debug("sensor label %s",str(self._sensor_label))
-        # _LOGGER.debug("_numeric_state_expected %s",str(self._numeric_state_expected))
-        # _LOGGER.debug("data: %s",str(data))
         
         if data and (dict_val := data.get(self._sensor_label)):
             self._attr_native_value = dict_val.get(self.entity_description.key)
