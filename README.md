@@ -13,22 +13,22 @@ This is the basic code, but can be prettified using HTML tag markup if required.
 
 type: markdown
 content: &gt;+
-##  &lt;table&gt;
-##  &lt;tr&gt;
-##  &lt;th&gt;ID&lt;/th&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;th&gt;Cpu&lt;/th&gt;&lt;th&gt;Memory&lt;/th&gt;&lt;th&gt;Uptime&lt;/th&gt;&lt;th&gt;Engine&lt;/th&gt;
-##  &lt;/tr&gt;
+  &lt;table&gt;
+  &lt;tr&gt;
+  &lt;th&gt;ID&lt;/th&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;th&gt;Cpu&lt;/th&gt;&lt;th&gt;Memory&lt;/th&gt;&lt;th&gt;Uptime&lt;/th&gt;&lt;th&gt;Engine&lt;/th&gt;
+  &lt;/tr&gt;
   {% set e_list = state_attr('sensor.localhost_containerslist', 'ContainerInfo')
   | sort(attribute= 's') | list %}
   {% set l_count = e_list | count %}
   {% for x in e_list %}
-##    &lt;tr&gt;
-##    &lt;td&gt;{{x.i[:4]}}&lt;/td&gt;
-##    &lt;td&gt;{{x.n}}&lt;/td&gt;
-##   &lt;td&gt;{{x.s}}&lt;/td&gt;
-##    &lt;td&gt;{{x.c}}&lt;/td&gt;
-##    &lt;td&gt;{{x.m}}&lt;/td&gt;
-##    &lt;td&gt;{{x.u}}&lt;/td&gt;
-##    &lt;td&gt;{{x.e}}&lt;/td&gt;
-##    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td&gt;{{x.i[:4]}}&lt;/td&gt;
+    &lt;td&gt;{{x.n}}&lt;/td&gt;
+   &lt;td&gt;{{x.s}}&lt;/td&gt;
+    &lt;td&gt;{{x.c}}&lt;/td&gt;
+    &lt;td&gt;{{x.m}}&lt;/td&gt;
+    &lt;td&gt;{{x.u}}&lt;/td&gt;
+    &lt;td&gt;{{x.e}}&lt;/td&gt;
+    &lt;/tr&gt;
   {% endfor %}
-##  &lt;/table&gt;
+  &lt;/table&gt;
