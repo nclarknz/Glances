@@ -1,4 +1,4 @@
-This is an extended version of the Glances core integration in Home Assistant. It provides more data for the containers. That is is shows a list of all containers installed on the system and its id, name, cpu usage, mem usuage, uptime and engine per each container.
+This is an extended version of the Glances core integration in Home Assistant. It provides more data for the containers and also the output for any amps plugins that are configured (inlcuding custom). It shows a list of all containers installed on the system and its id, name, cpu usage, mem usuage, uptime and engine per each container.
 
 This also uses a modified version of the glances_api to also return the results from using the AMPS plugin and also adds in the container info per container. In the glances2b_api directory, will need to copy the contents of this to the /usr/local/lib/python/site-packages/glances_api folder (May need to put the version number of python as well.) and overwite the existing ones (After taking a a backup of course) Everytime that HA is updated you may need to copy this over again.
 
@@ -9,24 +9,24 @@ In my case this is pointing at the localhost entity of the containers list, but 
 
 This is the basic code for the markup card, but can be prettified using HTML tag markup if required.
 
-<p>type: markdown</p>
-<p>content: &gt;+</p>
-<p>&lt;table&gt;</p>
-<p>  &lt;tr&gt;</p>
-<p>  &lt;th&gt;ID&lt;/th&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;th&gt;Cpu&lt;/th&gt;&lt;th&gt;Memory&lt;/th&gt;&lt;th&gt;Uptime&lt;/th&gt;&lt;th&gt;Engine&lt;/th&gt;</p>
-<p>  &lt;/tr&gt;</p>
-<p>  {% set e_list = state_attr('sensor.localhost_containerslist', 'ContainerInfo')</p>
-<p>  | sort(attribute= 's') | list %}</p>
-<p>  {% set l_count = e_list | count %}</p>
-<p>  {% for x in e_list %}</p>
-<p>    &lt;tr&gt;</p>
-<p>    &lt;td&gt;{{x.i[:4]}}&lt;/td&gt;</p>
-<p>    &lt;td&gt;{{x.n}}&lt;/td&gt;</p>
-<p>   &lt;td&gt;{{x.s}}&lt;/td&gt;</p>
-<p>    &lt;td&gt;{{x.c}}&lt;/td&gt;</p>
-<p>    &lt;td&gt;{{x.m}}&lt;/td&gt;</p>
-<p>    &lt;td&gt;{{x.u}}&lt;/td&gt;</p>
-<p>    &lt;td&gt;{{x.e}}&lt;/td&gt;</p>
-<p>    &lt;/tr&gt;</p>
-<p>  {% endfor %}</p>
-<p>  &lt;/table&gt;</p>
+<div>type: markdown</div>
+<div>content: &gt;+</div>
+<div>&lt;table&gt;</div>
+<div>  &lt;tr&gt;</div>
+<div>  &lt;th&gt;ID&lt;/th&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;th&gt;Cpu&lt;/th&gt;&lt;th&gt;Memory&lt;/th&gt;&lt;th&gt;Uptime&lt;/th&gt;&lt;th&gt;Engine&lt;/th&gt;</div>
+<div>  &lt;/tr&gt;</div>
+<div>  {% set e_list = state_attr('sensor.localhost_containerslist', 'ContainerInfo')</div>
+<div>  | sort(attribute= 's') | list %}</div>
+<div>  {% set l_count = e_list | count %}</div>
+<div>  {% for x in e_list %}</div>
+<div>    &lt;tr&gt;</div>
+<div>    &lt;td&gt;{{x.i[:4]}}&lt;/td&gt;</div>
+<div>    &lt;td&gt;{{x.n}}&lt;/td&gt;</div>
+<div>   &lt;td&gt;{{x.s}}&lt;/td&gt;</div>
+<div>    &lt;td&gt;{{x.c}}&lt;/td&gt;</div>
+<div>    &lt;td&gt;{{x.m}}&lt;/td&gt;</div>
+<div>    &lt;td&gt;{{x.u}}&lt;/td&gt;</div>
+<div>    &lt;td&gt;{{x.e}}&lt;/td&gt;</div>
+<div>    &lt;/tr&gt;</div>
+<div>  {% endfor %}</div>
+<div>  &lt;/table&gt;</div>
