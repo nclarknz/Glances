@@ -1,0 +1,1 @@
+docker run -d --restart="always" -v `pwd`/glances.conf:/etc/glances/glances.conf -v `pwd`/aptcheck.sh:/tmp/aptcheck.sh  -v /var/run/docker.sock:/var/run/docker.sock:ro -v /run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock:ro -p 61208-61209:61208-61209 -e GLANCES_OPT="-w" --pid host --net host -it nicolargo/glances:latest-full
